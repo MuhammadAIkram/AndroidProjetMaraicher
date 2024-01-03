@@ -14,7 +14,7 @@ public class TCP {
         Socket csocket;
 
         // Création de la socket et connexion sur le serveur
-        csocket = new Socket(InetAddress.getByName(IpServeur), PortServeur);
+        csocket = new Socket(IpServeur,PortServeur);
         System.out.println("Connexion établie.");
 
         // Caractéristiques de la socket

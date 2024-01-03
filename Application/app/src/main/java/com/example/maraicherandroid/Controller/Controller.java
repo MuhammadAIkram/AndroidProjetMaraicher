@@ -3,7 +3,6 @@ package com.example.maraicherandroid.Controller;
 import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AlertDialog;
-import com.example.maraicherandroid.Activities.ConnexionActivity;
 import com.example.maraicherandroid.Activities.HomePageActivity;
 import com.example.maraicherandroid.Activities.LoginActivity;
 import com.example.maraicherandroid.Modele.TCP;
@@ -28,11 +27,6 @@ public class Controller {
             instance = new Controller();
         }
         return instance;
-    }
-
-    public void startConnexionActivity(Context context) {
-        Intent intent = new Intent(context, ConnexionActivity.class);
-        context.startActivity(intent);
     }
 
     public void startLoginActivity(Context context) {
