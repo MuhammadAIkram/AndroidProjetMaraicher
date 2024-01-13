@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
             con.onConnecter(IP, port);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            con.showMessage("Erreur Connexion", "Erreur avec la connexion au DB", this);
         }
 
         //quand la connection est etablie avec la VM il va lancer le login activity

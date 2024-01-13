@@ -1,4 +1,4 @@
-package com.example.maraicherandroid.Activities.ui.home;
+package com.example.maraicherandroid.Activities.ui.select;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,18 +8,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.maraicherandroid.databinding.FragmentHomeBinding;
+import com.example.maraicherandroid.databinding.FragmentSelectBinding;
 
-public class HomeFragment extends Fragment {
+public class SelectFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentSelectBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        SelectViewModel homeViewModel =
+                new ViewModelProvider(this).get(SelectViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentSelectBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;

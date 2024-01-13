@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 public class Controller {
     private Socket csocket;
+    private Boolean logged;
 
     private TCP tcp;
     private static Controller instance;
@@ -66,8 +67,73 @@ public class Controller {
     }
 
     //----------------------------------------------------------------------------------
-    //---------		Pour Connexion
+    //---------		LOGIN/LOGOUT
     //----------------------------------------------------------------------------------
+
+    public Boolean onLogin(String username, String password, boolean check) throws Exception{
+        int nvClient;
+
+        if(check) nvClient = 1;
+        else nvClient = 0;
+
+        String Requete = "LOGIN#" + username + "#" + password + "#" + nvClient;
+
+        System.out.println(Requete);
+
+        String Reponse = SendRec(Requete);
+
+        System.out.println(Reponse);
+
+        String[] tokens;
+
+        tokens = Reponse.split("#");
+
+        if(tokens[0].equals("LOGIN"))
+        {
+            if(tokens[1].equals("ok"))
+            {
+//                if(maraicherWindow.getCheckBoxNvClient().isSelected())
+//                    JOptionPane.showMessageDialog(null, "Vous avez été inscrit avec succès", "Login", JOptionPane.INFORMATION_MESSAGE);
+//
+//                JOptionPane.showMessageDialog(null, "Vous êtes connecté avec succès", "Login", JOptionPane.INFORMATION_MESSAGE);
+//
+//                Logger();
+
+                logged = true;
+
+                //numFacture = Integer.parseInt(tokens[2]);
+
+                //System.out.println("Numero de facture: " + numFacture);
+
+//                getCaddie();
+//
+//                ConsultArticle(1);
+
+                return true;
+            }
+            else
+                throw new Exception(tokens[2]);
+        }
+
+        return false;
+    }
+
+
+    //----------------------------------------------------------------------------------
+    //---------		AUTRES
+    //----------------------------------------------------------------------------------
+
+    private String SendRec(String Requete) throws Exception {
+        int taille = tcp.Send(csocket, Requete);
+
+        if(taille == -1) throw new Exception("Erreur send!");
+
+        String Reponse = tcp.Receive(csocket);
+
+        if(Reponse == null) throw new Exception("Erreur Receive!");
+
+        return Reponse;
+    }
 
     public void showMessage(String title, String message, Context context){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

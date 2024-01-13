@@ -5,9 +5,9 @@
     <string name="mot_de_passe">Mot de passe</string>
     <string name="connecter">Connecter</string>
     <string name="title_activity_home_page">HomePageActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_select">Select</string>
+    <string name="title_caddie">Caddie</string>
+    <string name="title_paiement">Paiement</string>
     <string name="port">Port</string>
     <string name="ip">IP</string>
     <string name="connecterButton">Connecter</string>

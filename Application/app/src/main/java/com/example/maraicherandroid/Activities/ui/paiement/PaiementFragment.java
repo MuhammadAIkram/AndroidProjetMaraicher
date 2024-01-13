@@ -1,4 +1,4 @@
-package com.example.maraicherandroid.Activities.ui.notifications;
+package com.example.maraicherandroid.Activities.ui.paiement;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,18 +8,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.maraicherandroid.databinding.FragmentNotificationsBinding;
+import com.example.maraicherandroid.databinding.FragmentPaiementBinding;
 
-public class NotificationsFragment extends Fragment {
+public class PaiementFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentPaiementBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        PaiementViewModel notificationsViewModel =
+                new ViewModelProvider(this).get(PaiementViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentPaiementBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNotifications;

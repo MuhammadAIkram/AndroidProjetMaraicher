@@ -1,14 +1,14 @@
-package com.example.maraicherandroid.Activities.ui.notifications;
+package com.example.maraicherandroid.Activities.ui.paiement;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class PaiementViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public PaiementViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is notifications fragment");
     }

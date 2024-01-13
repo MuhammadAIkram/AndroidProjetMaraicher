@@ -1,4 +1,4 @@
-package com.example.maraicherandroid.Activities.ui.dashboard;
+package com.example.maraicherandroid.Activities.ui.caddie;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,18 +8,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.maraicherandroid.databinding.FragmentDashboardBinding;
+import com.example.maraicherandroid.databinding.FragmentCaddieBinding;
 
-public class DashboardFragment extends Fragment {
+public class CaddieFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentCaddieBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        CaddieViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(CaddieViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentCaddieBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
