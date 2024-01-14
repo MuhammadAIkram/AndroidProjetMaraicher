@@ -2,6 +2,8 @@ package com.example.maraicherandroid;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import com.example.maraicherandroid.Controller.Controller;
 
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.Properties;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Resources res = getResources();
+        Configuration config = res.getConfiguration();
+        config.locale = new Locale("fr");
+        res.updateConfiguration(config, res.getDisplayMetrics());
 
         // verifie si on peut se connecter au reseau
         if (isNetworkAvailable()) {

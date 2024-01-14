@@ -1,19 +1,31 @@
 package com.example.maraicherandroid.Controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AlertDialog;
 import com.example.maraicherandroid.Activities.HomePageActivity;
 import com.example.maraicherandroid.Activities.LoginActivity;
+import com.example.maraicherandroid.Activities.ProfileActivity;
+import com.example.maraicherandroid.Modele.Article;
 import com.example.maraicherandroid.Modele.TCP;
 
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Controller {
     private Socket csocket;
     private Boolean logged;
+    private int numFacture;
+    private int nbArticles;
+    private float totalCaddie;
+    private Article articleCourant;
+    private LinkedList<Article> Caddie;
+    private static HomePageActivity activity;
 
     private TCP tcp;
     private static Controller instance;
@@ -21,6 +33,12 @@ public class Controller {
     private Controller()
     {
         tcp = new TCP();
+
+        numFacture = 0;
+        nbArticles = 0;
+        totalCaddie = 0.0F;
+
+        Caddie = new LinkedList<>();
     }
 
     public static synchronized Controller getInstance() {
@@ -38,6 +56,19 @@ public class Controller {
     public void startHomeActivity(Context context) {
         Intent intent = new Intent(context, HomePageActivity.class);
         context.startActivity(intent);
+    }
+
+    public void SetHome(HomePageActivity homePageActivity){
+        activity = homePageActivity;
+    }
+
+    public void startPofileActivity(Context context) {
+        Intent intent = new Intent(context, ProfileActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static HomePageActivity getActivity() {
+        return activity;
     }
 
     //----------------------------------------------------------------------------------
@@ -92,18 +123,11 @@ public class Controller {
         {
             if(tokens[1].equals("ok"))
             {
-//                if(maraicherWindow.getCheckBoxNvClient().isSelected())
-//                    JOptionPane.showMessageDialog(null, "Vous avez été inscrit avec succès", "Login", JOptionPane.INFORMATION_MESSAGE);
-//
-//                JOptionPane.showMessageDialog(null, "Vous êtes connecté avec succès", "Login", JOptionPane.INFORMATION_MESSAGE);
-//
-//                Logger();
-
                 logged = true;
 
-                //numFacture = Integer.parseInt(tokens[2]);
+                numFacture = Integer.parseInt(tokens[2]);
 
-                //System.out.println("Numero de facture: " + numFacture);
+                System.out.println("Numero de facture: " + numFacture);
 
 //                getCaddie();
 //
@@ -118,6 +142,37 @@ public class Controller {
         return false;
     }
 
+    public Boolean onLogout() throws Exception{
+        String Requete = "LOGOUT";
+
+        System.out.println(Requete);
+
+        String Reponse = SendRec(Requete);
+
+        System.out.println(Reponse);
+
+        String[] tokens;
+
+        tokens = Reponse.split("#");
+
+        if(tokens[0].equals("LOGOUT"))
+        {
+            if(tokens[1].equals("ok"))
+            {
+//                if(nbArticles > 0)
+//                    VidePanier();
+
+                logged = false;
+
+                finishHome();
+
+                return true;
+            }
+            else return false;
+        }
+
+        return false;
+    }
 
     //----------------------------------------------------------------------------------
     //---------		AUTRES
@@ -143,5 +198,9 @@ public class Controller {
             dialog.dismiss();
         });
         builder.create().show();
+    }
+
+    public static void finishHome() {
+        activity.finish();
     }
 }

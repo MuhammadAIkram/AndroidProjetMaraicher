@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MaraicherAndroid</string>
+    <string name="veuillez_vous_connecter">Veuillez vous connecter</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <string name="connecter">Connecter</string>
+    <string name="title_activity_home_page">HomePageActivity</string>
+    <string name="title_select">Selection</string>
+    <string name="title_caddie">Caddie</string>
+    <string name="title_paiement">Paiement</string>
+    <string name="connect_button">Se connecter</string>
+    <string name="deconnect_button">Deconnexion</string>
+    <string name="language_button">Changer de langue</string>
+    <string name="checkbox">Nouveau Client</string>
+</resources>

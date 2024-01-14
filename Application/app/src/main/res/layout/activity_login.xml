@@ -14,12 +14,12 @@
             android:id="@+id/Username"
             android:minHeight="48dp"
             tools:ignore="HardcodedText,MissingConstraints"
-            android:hint="Nom d'utilisateur" app:layout_constraintTop_toTopOf="parent"
+            android:hint="@string/username" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintVertical_bias="0.24"/>
     <CheckBox
-            android:text="Nouveau Client"
+            android:text="@string/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/checkBox"
             tools:ignore="HardcodedText,MissingConstraints"
@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.498" app:layout_constraintVertical_bias="0.149"/>
     <Button
-            android:text="Se connecter"
+            android:text="@string/connect_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/BtnLogin"
             android:onClick="onLogin"
@@ -40,7 +40,7 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/Password"
-            android:hint="Mot de passe" tools:ignore="HardcodedText"
+            android:hint="@string/mot_de_passe" tools:ignore="HardcodedText"
             app:layout_constraintTop_toBottomOf="@+id/Username"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.497"
