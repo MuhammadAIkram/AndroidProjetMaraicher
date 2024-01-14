@@ -1,6 +1,5 @@
 package com.example.maraicherandroid.Controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import androidx.appcompat.app.AlertDialog;
@@ -11,9 +10,8 @@ import com.example.maraicherandroid.Modele.Article;
 import com.example.maraicherandroid.Modele.TCP;
 
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -129,8 +127,10 @@ public class Controller {
 
                 System.out.println("Numero de facture: " + numFacture);
 
-//                getCaddie();
-//
+                getCaddie();
+
+                System.out.println(Caddie);
+
                 ConsultArticle(1);
 
                 return true;
@@ -159,8 +159,8 @@ public class Controller {
         {
             if(tokens[1].equals("ok"))
             {
-//                if(nbArticles > 0)
-//                    VidePanier();
+                if(nbArticles > 0)
+                    VidePanier();
 
                 logged = false;
 
@@ -229,6 +229,8 @@ public class Controller {
 
                     if(i == 10)
                     {
+                        System.out.println("nouveau article");
+
                         Caddie.add(new Article(articleCourant.getId(), articleCourant.getIntitule(), articleCourant.getPrix(), stockSpin, articleCourant.getImage()));
 
                         totalCaddie += (stockSpin*articleCourant.getPrix());
@@ -245,6 +247,8 @@ public class Controller {
                     }
                     else
                     {
+                        System.out.println("update article");
+
                         Caddie.get(i).setStock(Caddie.get(i).getStock() + stockSpin);
 
                         totalCaddie = 0.0F;
@@ -253,7 +257,7 @@ public class Controller {
                             totalCaddie += (art.getPrix()*art.getStock());
                         }
 
-                        Requete = "UPDATE_CAD#" + numFacture + "#0#0#" + totalCaddie + "#" + articleCourant.getId() + "#" + stockSpin;
+                        Requete = "UPDATE_CAD#" + numFacture + "#0#1#" + totalCaddie + "#" + articleCourant.getId() + "#" + Caddie.get(i).getStock();
 
                         System.out.println(Requete);
 
@@ -326,5 +330,72 @@ public class Controller {
 
     public static void finishHome() {
         activity.finish();
+    }
+
+    private void VidePanier() throws Exception {
+        String Requete = "CANCEL_ALL#" + nbArticles;
+
+        for (Article art:Caddie) {
+            Requete += "#" + art.getId() + "&" + art.getStock();
+        }
+
+        System.out.println(Requete);
+
+        String Reponse = SendRec(Requete);
+
+        System.out.println(Reponse);
+
+        String[] tokens;
+
+        tokens = Reponse.split("#");
+
+        if(tokens[0].equals("CANCEL_ALL"))
+        {
+            if(tokens[1].equals("ko")) throw new Exception("Vous n'avez rien dans votre panier !");
+
+            totalCaddie = 0.0F;
+
+            Caddie = new LinkedList<>();
+
+            nbArticles = 0;
+        }
+    }
+
+    private void getCaddie() throws Exception {
+        String Requete = "CADDIE#" + numFacture;
+
+        System.out.println(Requete);
+
+        String Reponse = SendRec(Requete);
+
+        System.out.println(Reponse);
+
+        StringTokenizer tokenizer = new StringTokenizer(Reponse, "#");
+        String ptr = tokenizer.nextToken();
+
+        if (ptr.equals("CADDIE")) {
+            nbArticles = Integer.parseInt(tokenizer.nextToken());
+
+            if (nbArticles > 0) {
+                int i = 0;
+
+                while (i < nbArticles) {
+                    StringTokenizer itemTokenizer = new StringTokenizer(tokenizer.nextToken(), "$");
+
+                    int id = Integer.parseInt(itemTokenizer.nextToken());
+                    String intitule = itemTokenizer.nextToken();
+                    int stock = Integer.parseInt(itemTokenizer.nextToken());
+                    float prix = Float.parseFloat(itemTokenizer.nextToken());
+
+                    Article art = new Article(id, intitule, prix, stock, "");
+
+                    Caddie.add(art);
+
+                    totalCaddie += (stock * prix);
+
+                    i++;
+                }
+            }
+        }
     }
 }
