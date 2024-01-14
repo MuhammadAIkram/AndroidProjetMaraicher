@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.maraicherandroid.Controller.Controller;
 import com.example.maraicherandroid.R;
+import com.example.maraicherandroid.Requetes.BuyTask;
 import com.example.maraicherandroid.Requetes.PrecedentTask;
 import com.example.maraicherandroid.Requetes.SuivanteTask;
 import com.example.maraicherandroid.databinding.FragmentSelectBinding;
@@ -51,10 +52,13 @@ public class SelectFragment extends Fragment {
         });
 
         Button myButtonbuy = root.findViewById(R.id.buttonAchat);
+        NumberPicker numberPicker = root.findViewById(R.id.numberPicker);
         myButtonbuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("hello");
+                int selectedValue = numberPicker.getValue();
+
+                new BuyTask(SelectFragment.this, selectedValue).execute();
             }
         });
 

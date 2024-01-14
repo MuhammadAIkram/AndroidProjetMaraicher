@@ -184,6 +184,93 @@ public class Controller {
         return true;
     }
 
+    public boolean onAchat(int stockSpin) throws Exception {
+        if(stockSpin <= 0)
+            throw new Exception("Veuillez sélectionner une valeur supérieure à 0");
+
+        int i = 0;
+
+        for (Article art: Caddie) {
+            if(art.getId() == articleCourant.getId())
+            {
+                break;
+            }
+
+            i++;
+        }
+
+        if(Caddie.size() == i) i = 10;
+
+        System.out.println(i);
+
+        if(nbArticles == 10 && i == 10)
+            throw new Exception("votre panier est plein, merci d'acheter les articles ou de supprimer un article du panier !");
+
+        String Requete = "ACHAT#" + articleCourant.getId() + "#" + stockSpin;
+
+        System.out.println(Requete);
+
+        String Reponse = SendRec(Requete);
+
+        System.out.println(Reponse);
+
+        String[] tokens;
+
+        tokens = Reponse.split("#");
+
+        if(tokens[0].equals("ACHAT"))
+        {
+            if(!tokens[1].equals("-1"))
+            {
+                if(tokens[2].equals("0")) throw new Exception("stock insuffisant!");
+                else
+                {
+                    articleCourant.setStock(articleCourant.getStock() - stockSpin);
+
+                    if(i == 10)
+                    {
+                        Caddie.add(new Article(articleCourant.getId(), articleCourant.getIntitule(), articleCourant.getPrix(), stockSpin, articleCourant.getImage()));
+
+                        totalCaddie += (stockSpin*articleCourant.getPrix());
+
+                        Requete = "UPDATE_CAD#" + numFacture + "#0#0#" + totalCaddie + "#" + articleCourant.getId() + "#" + stockSpin;
+
+                        System.out.println(Requete);
+
+                        Reponse = SendRec(Requete);
+
+                        System.out.println(Reponse);
+
+                        nbArticles++;
+                    }
+                    else
+                    {
+                        Caddie.get(i).setStock(Caddie.get(i).getStock() + stockSpin);
+
+                        totalCaddie = 0.0F;
+
+                        for (Article art: Caddie) {
+                            totalCaddie += (art.getPrix()*art.getStock());
+                        }
+
+                        Requete = "UPDATE_CAD#" + numFacture + "#0#0#" + totalCaddie + "#" + articleCourant.getId() + "#" + stockSpin;
+
+                        System.out.println(Requete);
+
+                        Reponse = SendRec(Requete);
+
+                        System.out.println(Reponse);
+                    }
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
     //----------------------------------------------------------------------------------
     //---------		AUTRES
     //----------------------------------------------------------------------------------
