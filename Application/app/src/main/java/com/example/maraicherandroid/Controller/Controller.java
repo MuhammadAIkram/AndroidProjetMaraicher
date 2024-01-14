@@ -23,7 +23,7 @@ public class Controller {
     private int numFacture;
     private int nbArticles;
     private float totalCaddie;
-    private Article articleCourant;
+    public Article articleCourant;
     private LinkedList<Article> Caddie;
     private static HomePageActivity activity;
 
@@ -131,7 +131,7 @@ public class Controller {
 
 //                getCaddie();
 //
-//                ConsultArticle(1);
+                ConsultArticle(1);
 
                 return true;
             }
@@ -174,9 +174,46 @@ public class Controller {
         return false;
     }
 
+    public boolean onAvant() throws Exception {
+        ConsultArticle(articleCourant.getId() - 1);
+        return true;
+    }
+
+    public boolean onSuivante() throws Exception {
+        ConsultArticle(articleCourant.getId() + 1);
+        return true;
+    }
+
     //----------------------------------------------------------------------------------
     //---------		AUTRES
     //----------------------------------------------------------------------------------
+
+    private void ConsultArticle(int id) throws Exception {
+        String Requete = "CONSULT#" + id;
+
+        System.out.println(Requete);
+
+        String Reponse = SendRec(Requete);
+
+        System.out.println(Reponse);
+
+        String[] tokens;
+
+        tokens = Reponse.split("#");
+
+        if(tokens[0].equals("CONSULT"))
+        {
+            if(!tokens[1].equals("-1"))
+            {
+                String intitule = tokens[2];
+                int stock = Integer.parseInt(tokens[3]);
+                float prix = Float.parseFloat(tokens[4]);
+                String image = tokens[5];
+
+                articleCourant = new Article(Integer.parseInt(tokens[1]), intitule, prix, stock, image);
+            }
+        }
+    }
 
     private String SendRec(String Requete) throws Exception {
         int taille = tcp.Send(csocket, Requete);

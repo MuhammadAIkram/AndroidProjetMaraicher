@@ -12,4 +12,8 @@
     <string name="deconnect_button">Logout</string>
     <string name="language_button">Change Language</string>
     <string name="checkbox">New Client</string>
+    <string name="article">article</string>
+    <string name="next_button">Next</string>
+    <string name="precedent_button">Previous</string>
+    <string name="achat_button">Buy</string>
 </resources>
