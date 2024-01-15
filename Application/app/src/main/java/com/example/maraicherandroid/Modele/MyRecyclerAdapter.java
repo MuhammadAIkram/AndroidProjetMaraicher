@@ -1,5 +1,6 @@
 package com.example.maraicherandroid.Modele;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,12 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     @Override
     public int getItemCount() {
         return dataList.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateData(LinkedList<Article> newDataList) {
+        dataList = newDataList;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

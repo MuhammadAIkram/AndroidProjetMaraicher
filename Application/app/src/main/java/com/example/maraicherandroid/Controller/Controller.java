@@ -278,6 +278,72 @@ public class Controller {
         return false;
     }
 
+    public boolean onSupprimer(int ind) throws Exception {
+        if(ind == -1) throw new Exception("veuillez choisir une article pour supprimer");
+
+        String Requete = "CANCEL#" + Caddie.get(ind).getId() + "#" + Caddie.get(ind).getStock();
+
+        System.out.println(Requete);
+
+        String Reponse = SendRec(Requete);
+
+        System.out.println(Reponse);
+
+        String[] tokens;
+
+        tokens = Reponse.split("#");
+
+        if(tokens[0].equals("CANCEL"))
+        {
+            int newID = Integer.parseInt(tokens[1]);
+
+            if(newID != -1)
+            {
+                if(articleCourant.getId() == newID)
+                {
+                    articleCourant.setStock(Integer.parseInt(tokens[2]));
+                }
+
+                int idArticle = Caddie.get(ind).getId();
+
+                Caddie.remove(ind);
+                nbArticles--;
+
+                totalCaddie = 0.0F;
+
+                for (Article art: Caddie) {
+                    totalCaddie += (art.getPrix()*art.getStock());
+                }
+
+                Requete = "UPDATE_CAD#" + numFacture + "#1#" + totalCaddie + "#" + idArticle;
+
+                System.out.println(Requete);
+
+                Reponse = SendRec(Requete);
+
+                System.out.println(Reponse);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean onVider() throws Exception {
+        VidePanier();
+
+        String Requete = "DELETE_CAD#" + numFacture;
+
+        System.out.println(Requete);
+        String Reponse = SendRec(Requete);
+
+        System.out.println(Reponse);
+
+        Caddie = new LinkedList<>();
+
+        return true;
+    }
 
     //----------------------------------------------------------------------------------
     //---------		AUTRES
