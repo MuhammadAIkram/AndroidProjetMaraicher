@@ -1,9 +1,11 @@
 package com.example.maraicherandroid.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.view.View;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.maraicherandroid.Controller.Controller;
@@ -17,6 +19,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView totalTextView = findViewById(R.id.usernametextview);
+        totalTextView.setText(Controller.getInstance().getUser());
     }
 
     public void onLogout(View v){

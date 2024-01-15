@@ -24,6 +24,7 @@ public class Controller {
     public Article articleCourant;
     private LinkedList<Article> Caddie;
     private static HomePageActivity activity;
+    private String user;
 
     private TCP tcp;
     private static Controller instance;
@@ -71,6 +72,14 @@ public class Controller {
 
     public LinkedList<Article> getCaddieList(){
         return Caddie;
+    }
+
+    public float getTotalCaddie() {
+        return totalCaddie;
+    }
+
+    public String getUser() {
+        return user;
     }
 
     //----------------------------------------------------------------------------------
@@ -137,6 +146,8 @@ public class Controller {
 
                 ConsultArticle(1);
 
+                user = username;
+
                 return true;
             }
             else
@@ -177,6 +188,10 @@ public class Controller {
 
         return false;
     }
+
+    //----------------------------------------------------------------------------------
+    //---------		HOMEPAGE
+    //----------------------------------------------------------------------------------
 
     public boolean onAvant() throws Exception {
         ConsultArticle(articleCourant.getId() - 1);
@@ -343,6 +358,43 @@ public class Controller {
         Caddie = new LinkedList<>();
 
         return true;
+    }
+
+    public boolean onConfirme() throws Exception {
+        if(nbArticles <= 0)
+            throw new Exception("Vous n'avez rien dans votre panier !");
+
+        String Requete = "CONFIRMER#" + numFacture + "#" + user;
+
+        System.out.println(Requete);
+
+        String Reponse = SendRec(Requete);
+
+        System.out.println(Reponse);
+
+        String[] tokens;
+
+        tokens = Reponse.split("#");
+
+        if(tokens[0].equals("CONFIRMER"))
+        {
+            if(tokens[1].equals("-1"))
+                throw new Exception("Un problème est survenu lors de l'obtention de votre numéro de reçu, mais votre commande a été confirmée !");
+            else
+            {
+                totalCaddie = 0.0F;
+
+                Caddie = new LinkedList<>();
+
+                nbArticles = 0;
+
+                numFacture = Integer.parseInt(tokens[1]);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     //----------------------------------------------------------------------------------

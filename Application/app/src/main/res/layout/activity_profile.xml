@@ -11,9 +11,9 @@
             android:text="@string/deconnect_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/btnLogout"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:onClick="onLogout"/>
+            app:layout_constraintStart_toStartOf="parent" android:onClick="onLogout"
+            app:layout_constraintTop_toBottomOf="@+id/usernametextview"/>
     <Button
             android:text="@string/language_button"
             android:layout_width="wrap_content"
@@ -21,4 +21,10 @@
             app:layout_constraintTop_toBottomOf="@+id/btnLogout"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:onClick="toggleLanguage"/>
+    <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/usernametextview"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

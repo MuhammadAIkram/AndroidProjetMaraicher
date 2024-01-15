@@ -18,4 +18,5 @@
     <string name="achat_button">Acheter</string>
     <string name="Delete">Supprimer</string>
     <string name="DeleteAll">Vider le panier</string>
+    <string name="ConfirmButton">Confirmer</string>
 </resources>
