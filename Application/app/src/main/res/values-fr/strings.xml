@@ -16,4 +16,6 @@
     <string name="next_button">Suivante</string>
     <string name="precedent_button">Precedent</string>
     <string name="achat_button">Acheter</string>
+    <string name="Delete">Supprimer</string>
+    <string name="DeleteAll">Vider le panier</string>
 </resources>

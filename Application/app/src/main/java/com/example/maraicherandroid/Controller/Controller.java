@@ -69,6 +69,10 @@ public class Controller {
         return activity;
     }
 
+    public LinkedList<Article> getCaddieList(){
+        return Caddie;
+    }
+
     //----------------------------------------------------------------------------------
     //---------		Pour Connexion
     //----------------------------------------------------------------------------------
@@ -361,7 +365,7 @@ public class Controller {
         }
     }
 
-    private void getCaddie() throws Exception {
+    public void getCaddie() throws Exception {
         String Requete = "CADDIE#" + numFacture;
 
         System.out.println(Requete);

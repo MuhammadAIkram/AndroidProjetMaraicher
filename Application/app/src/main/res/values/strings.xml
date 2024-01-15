@@ -16,4 +16,6 @@
     <string name="next_button">Next</string>
     <string name="precedent_button">Previous</string>
     <string name="achat_button">Buy</string>
+    <string name="Delete">Delete</string>
+    <string name="DeleteAll">Delete All</string>
 </resources>
