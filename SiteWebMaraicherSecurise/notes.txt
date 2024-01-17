@@ -1,0 +1,13 @@
+--creation du paire de cles via keystools--
+keytool -genkeypair -keyalg RSA -alias selfsigned -keysize 2048 -keystore serverKeystoreMaraicher.jks -storepass passwordKeystore
+
+--creation du certificat de demande de signature (CSR)--
+keytool -certreq -alias selfsigned -keystore serverKeystoreMaraicher.jks -storepass passwordKeystore -file csr.pem
+
+--creation du certificat signer par nous meme (selfsigned certificate)--
+keytool -gencert -alias selfsigned -keystore serverKeystoreMaraicher.jks -storepass passwordKeystore -infile csr.pem -outfile cert.pem
+
+--importer le certificat dans le keystore pour les pairs de cles--
+keytool -import -alias selfsigned -file cert.pem -keystore serverKeystoreMaraicher.jks -storepass passwordKeystore
+
+keystore password: passwordKeystore
